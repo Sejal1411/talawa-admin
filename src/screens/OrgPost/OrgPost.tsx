@@ -107,7 +107,8 @@ function orgPost(): JSX.Element {
     const postinfo = _postinfo.trim();
 
     try {
-      if (!posttitle || !postinfo) {
+      // Check for empty strings only if pinPost is true
+      if (pinPost && (!posttitle || !postinfo)) {
         throw new Error('Text fields cannot be empty strings');
       }
 
@@ -363,23 +364,27 @@ function orgPost(): JSX.Element {
         </Modal.Header>
         <Form onSubmitCapture={createPost}>
           <Modal.Body>
-            <Form.Label htmlFor="posttitle">{t('postTitle')}</Form.Label>
-            <Form.Control
-              type="name"
-              id="orgname"
-              className="mb-3"
-              placeholder={t('postTitle1')}
-              data-testid="modalTitle"
-              autoComplete="off"
-              required
-              value={postformState.posttitle}
-              onChange={(e): void => {
-                setPostFormState({
-                  ...postformState,
-                  posttitle: e.target.value,
-                });
-              }}
-            />
+            {postformState.pinPost && (
+              <Form.Label htmlFor="posttitle">{t('postTitle')}</Form.Label>
+            )}
+            {postformState.pinPost && (
+              <Form.Control
+                type="name"
+                id="orgname"
+                className="mb-3"
+                placeholder={t('postTitle1')}
+                data-testid="modalTitle"
+                autoComplete="off"
+                // required
+                value={postformState.posttitle}
+                onChange={(e): void => {
+                  setPostFormState({
+                    ...postformState,
+                    posttitle: e.target.value,
+                  });
+                }}
+              />
+            )}
             <Form.Label htmlFor="postinfo">{t('information')}</Form.Label>
             <Form.Control
               type="descrip"

@@ -47,6 +47,7 @@ export default function OrgPostCard(
   const [togglePost, setPostToggle] = useState('Read more');
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showTitleModal, setShowTitleModal] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -69,8 +70,6 @@ export default function OrgPostCard(
       }
     } catch (error: any) {
       console.log(error);
-      /* istanbul ignore next */
-      errorHandler(t, error);
     }
   };
   const toggleShowEditModal = (): void => {
@@ -86,6 +85,7 @@ export default function OrgPostCard(
     setShowEditModal((prev) => !prev);
   };
   const toggleShowDeleteModal = (): void => setShowDeleteModal((prev) => !prev);
+  const toggleShowTitleModal = (): void => setShowTitleModal((prev) => !prev);
 
   const handleVideoPlay = (): void => {
     setPlaying(true);
@@ -153,6 +153,12 @@ export default function OrgPostCard(
     setModalVisible(false);
     setMenuVisible(false);
     setShowDeleteModal(true);
+  }
+
+  function handleTitleModal(): void {
+    setModalVisible(false);
+    setMenuVisible(false);
+    setShowTitleModal(true);
   }
 
   useEffect(() => {
@@ -223,6 +229,30 @@ export default function OrgPostCard(
 
       if (data) {
         toast.success(t('postUpdated'));
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+
+  const addTitleHandler = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    try {
+      await togglePostPin(props.id, props.pinned);
+      const { data } = await toggle({
+        variables: {
+          id: props.id,
+          title: postformState.posttitle,
+        },
+      });
+      if (data) {
+        const toastMessage = !props.pinned ? 'Post pinned' : 'Post unpinned';
+        toast.success(toastMessage);
         setTimeout(() => {
           window.location.reload();
         }, 2000);
@@ -426,9 +456,12 @@ export default function OrgPostCard(
                 </li>
                 <li
                   data-testid="pinpostBtn"
-                  onClick={(): Promise<void> =>
-                    togglePostPin(props.id, props.pinned)
-                  }
+                  onClick={async (): Promise<void> => {
+                    await togglePostPin(props.id, props.pinned);
+                    if (!props.pinned) {
+                      handleTitleModal(); // Call handleTitleModal only when props.pinned is 'Pin post'
+                    }
+                  }}
                 >
                   {!props.pinned ? 'Pin post' : 'Unpin post'}
                 </li>
@@ -465,6 +498,44 @@ export default function OrgPostCard(
             data-testid="deletePostBtn"
           >
             {t('yes')}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Title Modal */}
+      <Modal show={showTitleModal} onHide={toggleShowTitleModal}>
+        <Modal.Header>
+          <h5>{t('addTitle')}</h5>
+          <Button variant="danger" onClick={toggleShowTitleModal}>
+            <i className="fa fa-times"></i>
+          </Button>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Label htmlFor="posttitle">{t('postTitle')}</Form.Label>
+          <Form.Control
+            type="text"
+            id="postTitle"
+            name="posttitle"
+            value={postformState.posttitle}
+            onChange={handleInputEvent}
+            data-testid="updateTitle"
+            required
+            className="mb-3"
+            placeholder={t('postTitle1')}
+            autoComplete="off"
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={toggleShowTitleModal}>
+            {t('no')}
+          </Button>
+          <Button
+            type="button"
+            className="btn btn-success"
+            onClick={addTitleHandler}
+            data-testid="addTitleBtn"
+          >
+            {t('submit')}
           </Button>
         </Modal.Footer>
       </Modal>

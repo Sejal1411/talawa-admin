@@ -350,6 +350,7 @@
   },
   "orgPostCard": {
     "author": "Autor",
+    "addTitle": "Agregar título a la publicación fija",
     "imageURL": "URL de la Imagen",
     "videoURL": "URL del Video",
     "edit": "Editar Publicación",
@@ -369,6 +370,7 @@
     "postDeleted": "Publicación eliminada exitosamente.",
     "postUpdated": "Publicación actualizada exitosamente.",
     "tag": "Su navegador no admite la etiqueta de video",
+    "submit": "Entregar",
     "talawaApiUnavailable": "El servicio Talawa-API no está disponible. ¿Está en funcionamiento? Compruebe también su conectividad de red."
   },
   "blockUnblockUser": {

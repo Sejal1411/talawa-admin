@@ -350,6 +350,7 @@
   },
   "orgPostCard": {
     "author": "作者",
+    "addTitle": "添加标题到固定帖子",
     "imageURL": "图像链接",
     "videoURL": "视频链接",
     "edit": "编辑帖子",
@@ -370,6 +371,7 @@
     "postDeleted": "帖子成功删除。",
     "postUpdated": "帖子成功更新。",
     "tag": "您的浏览器不支持视频标签",
+    "submit": "提交",
     "talawaApiUnavailable": "Talawa-API 服务不可用。是否正在运行？还请检查您的网络连接。"
   },
   "blockUnblockUser": {

@@ -89,12 +89,13 @@ export const PLUGIN_SUBSCRIPTION = gql`
  * GraphQL mutation to toggle the pinned status of a post.
  *
  * @param id - The ID of the post to be toggled.
+ * @param title - the title of the post.
  * @returns The updated post object with the new pinned status.
  */
 
 export const TOGGLE_PINNED_POST = gql`
-  mutation TogglePostPin($id: ID!) {
-    togglePostPin(id: $id) {
+  mutation TogglePostPin($id: ID!, $title: String) {
+    togglePostPin(id: $id, title: $title) {
       _id
     }
   }

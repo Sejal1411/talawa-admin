@@ -361,6 +361,61 @@ describe('Testing Organization Post Card', () => {
     userEvent.click(screen.getByTestId('deletePostModalBtn'));
     fireEvent.click(screen.getByTestId('deletePostBtn'));
   });
+  test('Testing add title functionality', async () => {
+    render(
+      <MockedProvider addTypename={false} link={link}>
+        <BrowserRouter>
+          <I18nextProvider i18n={i18nForTest}>
+            <OrgPostCard {...props} />
+          </I18nextProvider>
+        </BrowserRouter>
+      </MockedProvider>
+    );
+
+    await wait();
+
+    userEvent.click(screen.getByAltText('image'));
+    userEvent.click(screen.getByTestId('moreiconbtn'));
+
+    userEvent.click(screen.getByTestId('deletePostModalBtn'));
+    fireEvent.click(screen.getByTestId('addTitleBtn'));
+
+    await waitFor(
+      () => {
+        expect(window.location.reload).toHaveBeenCalled();
+      },
+      { timeout: 3000 }
+    );
+  });
+  test('Testing add title functionality fail case', async () => {
+    const props2 = {
+      key: '123',
+      id: '',
+      postTitle: 'Event Info',
+      postInfo: 'Time change',
+      postAuthor: 'John Doe',
+      postPhoto: 'test.png',
+      postVideo: 'test.mp4',
+      pinned: true,
+    };
+    render(
+      <MockedProvider addTypename={false} link={link}>
+        <BrowserRouter>
+          <I18nextProvider i18n={i18nForTest}>
+            <OrgPostCard {...props2} />
+          </I18nextProvider>
+        </BrowserRouter>
+      </MockedProvider>
+    );
+
+    await wait();
+
+    userEvent.click(screen.getByAltText('image'));
+    userEvent.click(screen.getByTestId('moreiconbtn'));
+
+    userEvent.click(screen.getByTestId('deletePostModalBtn'));
+    fireEvent.click(screen.getByTestId('addTitleBtn'));
+  });
   test('Testing close functionality of primary modal', async () => {
     render(
       <MockedProvider addTypename={false} link={link}>

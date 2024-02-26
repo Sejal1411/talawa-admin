@@ -355,6 +355,7 @@
   },
   "orgPostCard": {
     "author": "Author",
+    "addTitle": "Add title to pin post",
     "imageURL": "Image URL",
     "videoURL": "Video URL",
     "edit": "Edit Post",
@@ -374,6 +375,7 @@
     "postDeleted": "Post deleted successfully.",
     "postUpdated": "Post Updated successfully.",
     "tag": " Your browser does not support the video tag",
+    "submit": "Submit",
     "pin": "Pin Post",
     "talawaApiUnavailable": "Talawa-API service is unavailable. Is it running? Check your network connectivity too."
   },
