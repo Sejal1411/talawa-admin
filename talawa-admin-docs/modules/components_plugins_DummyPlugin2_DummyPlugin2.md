@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[src/components/plugins/DummyPlugin2/DummyPlugin2.tsx:4](https://github.com/PalisadoesFoundation/talawa-admin/blob/12d9229/src/components/plugins/DummyPlugin2/DummyPlugin2.tsx#L4)
+[src/components/plugins/DummyPlugin2/DummyPlugin2.tsx:4](https://github.com/Sejal1411/talawa-admin/blob/2150bf1/src/components/plugins/DummyPlugin2/DummyPlugin2.tsx#L4)
